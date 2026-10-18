@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuraRouteImport } from './routes/aura'
+import { Route as ExploreFragranceRouteImport } from './routes/explore-fragrance'
+import { Route as IshalRouteImport } from './routes/ishal'
+import { Route as ShopRouteImport } from './routes/shop'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuraRoute = AuraRouteImport.update({
+  id: '/aura',
+  path: '/aura',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreFragranceRoute = ExploreFragranceRouteImport.update({
+  id: '/explore-fragrance',
+  path: '/explore-fragrance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IshalRoute = IshalRouteImport.update({
+  id: '/ishal',
+  path: '/ishal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/aura': typeof AuraRoute
+  '/explore-fragrance': typeof ExploreFragranceRoute
+  '/ishal': typeof IshalRoute
+  '/shop': typeof ShopRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/aura': typeof AuraRoute
+  '/explore-fragrance': typeof ExploreFragranceRoute
+  '/ishal': typeof IshalRoute
+  '/shop': typeof ShopRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/aura': typeof AuraRoute
+  '/explore-fragrance': typeof ExploreFragranceRoute
+  '/ishal': typeof IshalRoute
+  '/shop': typeof ShopRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/aura' | '/explore-fragrance' | '/ishal' | '/shop'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/aura' | '/explore-fragrance' | '/ishal' | '/shop'
+  id: '__root__' | '/' | '/aura' | '/explore-fragrance' | '/ishal' | '/shop'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuraRoute: typeof AuraRoute
+  ExploreFragranceRoute: typeof ExploreFragranceRoute
+  IshalRoute: typeof IshalRoute
+  ShopRoute: typeof ShopRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/aura': {
+      id: '/aura'
+      path: '/aura'
+      fullPath: '/aura'
+      preLoaderRoute: typeof AuraRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore-fragrance': {
+      id: '/explore-fragrance'
+      path: '/explore-fragrance'
+      fullPath: '/explore-fragrance'
+      preLoaderRoute: typeof ExploreFragranceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ishal': {
+      id: '/ishal'
+      path: '/ishal'
+      fullPath: '/ishal'
+      preLoaderRoute: typeof IshalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuraRoute: AuraRoute,
+  ExploreFragranceRoute: ExploreFragranceRoute,
+  IshalRoute: IshalRoute,
+  ShopRoute: ShopRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
