@@ -6,7 +6,7 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const [zoom, setZoom] = useState<{ x: number; y: number } | null>(null);
-  const img = images[active];
+  const img = images[active]!;
   const go = (d: number) => setActive((a) => (a + d + images.length) % images.length);
 
   useEffect(() => {
