@@ -3,5 +3,3 @@ Allow: /
 Disallow: /cart
 Disallow: /checkout
 Disallow: /order-confirmation
-
-Sitemap: /sitemap.xml

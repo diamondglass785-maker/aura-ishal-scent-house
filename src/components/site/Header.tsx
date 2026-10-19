@@ -9,7 +9,7 @@ const NAV = [
   { to: "/shop", label: "Shop" },
   { to: "/aura", label: "Aura" },
   { to: "/ishal", label: "Ishal" },
-  { to: "/explore-fragrance", label: "Explore Fragrance" },
+  { to: "/explore-fragrance" as const, label: "Explore Fragrance" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -28,10 +28,11 @@ export function Header() {
     return () => window.removeEventListener("scroll", on);
   }, []);
 
-  const results = q.trim()
-    ? [...PRODUCT_LIST.map((p) => ({ to: `/${p.slug}`, label: p.name, hint: p.tagline })),
-       { to: "/explore-fragrance", label: "Explore Fragrance", hint: "Notes & scent timeline" },
-       { to: "/contact", label: "Contact", hint: "WhatsApp, call, Instagram" }]
+  type R = { to: "/aura" | "/ishal" | "/explore-fragrance" | "/contact"; label: string; hint: string };
+  const results: R[] = q.trim()
+    ? [...PRODUCT_LIST.map((p): R => ({ to: `/${p.slug}`, label: p.name, hint: p.tagline })),
+       { to: "/explore-fragrance" as const, label: "Explore Fragrance", hint: "Notes & scent timeline" },
+       { to: "/contact" as const, label: "Contact", hint: "WhatsApp, call, Instagram" }]
         .filter((r) => (r.label + r.hint).toLowerCase().includes(q.toLowerCase()))
     : [];
 

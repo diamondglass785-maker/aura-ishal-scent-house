@@ -94,7 +94,7 @@ function Home() {
         <section key={p.slug} className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 md:grid-cols-2 lg:px-8">
           <Reveal className={i % 2 ? "md:order-2" : ""}>
             <div className="overflow-hidden">
-              <img src={p.gallery[1].src} alt={p.gallery[1].alt} loading="lazy" className="aspect-[4/5] w-full object-cover transition-transform duration-[2s] hover:scale-105" />
+              <img src={p.gallery[1]!.src} alt={p.gallery[1]!.alt} loading="lazy" className="aspect-[4/5] w-full object-cover transition-transform duration-[2s] hover:scale-105" />
             </div>
           </Reveal>
           <Reveal delay={150}>
