@@ -1,12 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Gift, ShieldCheck, Truck, MessageCircle } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { Gift, ShieldCheck, Truck, MessageCircle, Pause, Play, Volume2, VolumeX, Maximize } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/site/ProductCard";
 import { Reveal } from "@/components/site/Reveal";
 import { ASSETS, PRODUCTS, PRODUCT_LIST } from "@/lib/products";
-
-/** Set to the uploaded brand advertisement video URL once provided. */
-const HERO_VIDEO_SRC: string | null = null;
 
 const TITLE = "VIP Perfume India | Premium Long-Lasting Fragrances";
 const DESC = "Discover VIP Perfume Aura and Ishal. Explore premium fragrances, sophisticated scent profiles and long-lasting perfumes. Shop online in India.";
@@ -29,33 +27,36 @@ export const Route = createFileRoute("/")({
 });
 
 function Hero() {
-  const bg = useRef<HTMLDivElement>(null);
+  const video = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const on = () => { if (bg.current) bg.current.style.transform = `translateY(${window.scrollY * 0.25}px)`; };
-    window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.current?.play().catch(() => setPlaying(false));
+    }
   }, []);
   return (
-    <section className="relative h-[100svh] min-h-[600px] overflow-hidden">
-      <div ref={bg} className="absolute inset-0">
-        {HERO_VIDEO_SRC ? (
-          <video className="h-full w-full object-cover" src={HERO_VIDEO_SRC} poster={ASSETS.heroPoster} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
-        ) : (
-          <img src={ASSETS.heroPoster} alt="" width={1920} height={1088} className="kenburns h-full w-full object-cover" fetchPriority="high" />
-        )}
+    <section className="relative h-[90svh] min-h-[520px] overflow-hidden bg-background">
+      <div className="absolute inset-0">
+        {failed ? <img src={ASSETS.filmPoster} alt="VIP Perfume Aura bottle and presentation box" className="h-full w-full object-contain" /> :
+          <video ref={video} className="h-full w-full object-contain" src={ASSETS.brandFilm} poster={ASSETS.filmPoster} muted={muted} loop playsInline preload="auto" aria-label="VIP Perfume brand film" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setFailed(true)} />}
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/50" />
-      <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-5 text-center">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/20" />
+      {!failed && <div className="absolute right-5 top-28 z-20 flex gap-2">
+        <Button variant="outline" size="icon" title={playing ? "Pause video" : "Play video"} aria-label={playing ? "Pause video" : "Play video"} onClick={() => { const v = video.current; if (!v) return; if (v.paused) v.play().catch(() => setPlaying(false)); else v.pause(); }}>{playing ? <Pause /> : <Play />}</Button>
+        <Button variant="outline" size="icon" title={muted ? "Turn sound on" : "Mute video"} aria-label={muted ? "Turn sound on" : "Mute video"} onClick={() => setMuted((m) => !m)}>{muted ? <VolumeX /> : <Volume2 />}</Button>
+        <Button variant="outline" size="icon" title="Full screen video" aria-label="Full screen video" onClick={() => video.current?.requestFullscreen?.().catch(() => {})}><Maximize /></Button>
+      </div>}
+      <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col items-center justify-end px-5 pb-8 text-center">
         <Reveal><p className="eyebrow">The Art of Fine Fragrance</p></Reveal>
-        <Reveal delay={150}><h1 className="mt-6 text-5xl leading-[1.05] sm:text-7xl lg:text-8xl text-gold-gradient">LEAVE A LASTING IMPRESSION</h1></Reveal>
-        <Reveal delay={300}><p className="mx-auto mt-6 max-w-xl text-base text-ivory/85 sm:text-lg">Discover the distinctive character of VIP PERFUME Aura and Ishal.</p></Reveal>
-        <Reveal delay={450} className="mt-10 flex flex-col gap-3 sm:flex-row">
+        <Reveal delay={150}><h1 className="mt-3 text-4xl leading-[1.05] sm:text-6xl text-gold-gradient">VIP PERFUME</h1></Reveal>
+        <Reveal delay={300}><p className="mx-auto mt-3 max-w-xl text-sm text-ivory/85 sm:text-lg">Leave a lasting impression. Discover Aura and Ishal.</p></Reveal>
+        <Reveal delay={450} className="mt-5 flex flex-col gap-3 sm:flex-row">
           <Link to="/shop" className="btn-gold">Explore the Collection</Link>
           <Link to="/explore-fragrance" className="btn-outline-gold">Discover the Scent Journey</Link>
         </Reveal>
       </div>
-      <div className="absolute bottom-8 left-1/2 h-12 w-px -translate-x-1/2 bg-gradient-to-b from-gold to-transparent" />
     </section>
   );
 }
@@ -94,7 +95,7 @@ function Home() {
         <section key={p.slug} className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 md:grid-cols-2 lg:px-8">
           <Reveal className={i % 2 ? "md:order-2" : ""}>
             <div className="overflow-hidden">
-              <img src={p.gallery[1]!.src} alt={p.gallery[1]!.alt} loading="lazy" className="aspect-[4/5] w-full object-cover transition-transform duration-[2s] hover:scale-105" />
+               <img src={(p.gallery[1] ?? p.gallery[0])?.src} alt={(p.gallery[1] ?? p.gallery[0])?.alt} loading="lazy" className="aspect-[4/5] w-full object-contain transition-transform duration-[2s] hover:scale-105" />
             </div>
           </Reveal>
           <Reveal delay={150}>

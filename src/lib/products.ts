@@ -1,7 +1,17 @@
-import auraImg from "@/assets/aura-standin.jpg";
-import ishalImg from "@/assets/ishal-standin.jpg";
+import auraOriginal from "@/assets/uploads/aura-original.jpg.asset.json";
+import ishalOriginal from "@/assets/uploads/ishal-original.jpg.asset.json";
+import auraWater from "@/assets/uploads/aura-water.jpg.asset.json";
+import auraPresentation from "@/assets/uploads/aura-presentation.jpg.asset.json";
+import auraCloseup from "@/assets/uploads/aura-closeup.jpg.asset.json";
+import auraWatch from "@/assets/uploads/aura-watch.jpg.asset.json";
+import ishalWater from "@/assets/uploads/ishal-water.jpg.asset.json";
+import ishalPresentation from "@/assets/uploads/ishal-presentation.jpg.asset.json";
+import brandFilm from "@/assets/uploads/brand-film.mp4.asset.json";
 import heroPoster from "@/assets/hero-poster.jpg";
 import amberWave from "@/assets/amber-wave.jpg";
+
+const auraImg = auraOriginal.url;
+const ishalImg = ishalOriginal.url;
 
 export type GalleryImage = { src: string; alt: string; caption: string; pendingOriginal?: boolean };
 
@@ -20,10 +30,7 @@ export type Product = {
   inStock: boolean;
 };
 
-/**
- * Temporary stand-in images are used until the brand uploads the original
- * Aura / Ishal photographs. Replace `image` and `gallery[].src` with the originals.
- */
+/** Uploaded brand photos are used unchanged across all shopping views. */
 export const PRODUCTS: Record<Product["slug"], Product> = {
   aura: {
     slug: "aura",
@@ -43,10 +50,11 @@ export const PRODUCTS: Record<Product["slug"], Product> = {
       "50ml Eau de Parfum format",
     ],
     gallery: [
-      { src: auraImg, alt: "VIP Perfume Aura bottle micro close-up", caption: "Micro close-up", pendingOriginal: true },
-      { src: auraImg, alt: "VIP Perfume Aura bottle resting on water", caption: "On still water", pendingOriginal: true },
-      { src: heroPoster, alt: "VIP Perfume Aura bottle and box with a watch", caption: "Bottle, box & watch", pendingOriginal: true },
-      { src: auraImg, alt: "VIP Perfume Aura bottle side angle", caption: "Side angle", pendingOriginal: true },
+      { src: auraImg, alt: "VIP Perfume Aura bottle and box", caption: "Bottle & box" },
+      { src: auraWater.url, alt: "VIP Perfume Aura bottle on dark water", caption: "On water" },
+      { src: auraPresentation.url, alt: "VIP Perfume Aura in its presentation box", caption: "Presentation box" },
+      { src: auraCloseup.url, alt: "VIP Perfume Aura bottle micro close-up", caption: "Micro close-up" },
+      { src: auraWatch.url, alt: "VIP Perfume Aura bottle and box with a watch", caption: "Bottle, box & watch" },
     ],
     inStock: true,
   },
@@ -68,10 +76,9 @@ export const PRODUCTS: Record<Product["slug"], Product> = {
       "50ml Eau de Parfum format",
     ],
     gallery: [
-      { src: ishalImg, alt: "VIP Perfume Ishal bottle on water", caption: "On water", pendingOriginal: true },
-      { src: ishalImg, alt: "VIP Perfume Ishal bottle falling into liquid gold splash", caption: "Golden splash", pendingOriginal: true },
-      { src: ishalImg, alt: "Original VIP Perfume Ishal bottle and box", caption: "Bottle & box", pendingOriginal: true },
-      { src: amberWave, alt: "Man holding VIP Perfume Ishal", caption: "In hand", pendingOriginal: true },
+      { src: ishalImg, alt: "VIP Perfume Ishal bottle and box", caption: "Bottle & box" },
+      { src: ishalWater.url, alt: "VIP Perfume Ishal bottle on golden water", caption: "On water" },
+      { src: ishalPresentation.url, alt: "VIP Perfume Ishal in its presentation box", caption: "Presentation box" },
     ],
     inStock: true,
   },
@@ -105,4 +112,4 @@ export const CONTACT = {
   amazon: "https://amzn.in/d/0cLmjadw",
 };
 
-export const ASSETS = { heroPoster, amberWave };
+export const ASSETS = { heroPoster, amberWave, brandFilm: brandFilm.url, filmPoster: auraPresentation.url };
