@@ -117,6 +117,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => {
+    const onPreload = (e: Event) => { e.preventDefault(); reloadOnceForStaleChunk("Failed to fetch dynamically imported module"); };
+    const onRejection = (e: PromiseRejectionEvent) => { reloadOnceForStaleChunk(String(e.reason?.message ?? e.reason)); };
+    window.addEventListener("vite:preloadError", onPreload);
+    window.addEventListener("unhandledrejection", onRejection);
+    return () => { window.removeEventListener("vite:preloadError", onPreload); window.removeEventListener("unhandledrejection", onRejection); };
+  }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
