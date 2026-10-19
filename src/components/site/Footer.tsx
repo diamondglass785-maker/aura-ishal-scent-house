@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { CONTACT } from "@/lib/products";
+import { Instagram, MessageCircle, Phone, ShoppingBag } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
@@ -28,13 +30,13 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="eyebrow mb-4">Connect</p>
-          <ul className="space-y-2 text-sm text-ivory/80">
-            <li><a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="hover:text-champagne">WhatsApp</a></li>
-            <li><a href={`tel:${CONTACT.phoneIntl}`} className="hover:text-champagne">+91 {CONTACT.phone}</a></li>
-            <li><a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-champagne">Instagram</a></li>
-            <li><a href={CONTACT.amazon} target="_blank" rel="noopener noreferrer" className="hover:text-champagne">Shop on Amazon</a></li>
-          </ul>
+          <p className="eyebrow mb-4">Contact & order help</p>
+          <div className="grid gap-3">
+            <Button asChild className="h-auto justify-start whitespace-normal py-3"><a href={`${CONTACT.whatsapp}?text=${encodeURIComponent("Hello VIP Perfume, I would like help choosing a fragrance or placing an order.")}`} target="_blank" rel="noopener noreferrer"><MessageCircle /> WhatsApp · Order help</a></Button>
+            <Button asChild variant="outline" className="h-auto justify-start whitespace-normal py-3"><a href={`tel:${CONTACT.phoneIntl}`}><Phone /> Call · {CONTACT.phone}</a></Button>
+            <Button asChild variant="outline" className="h-auto justify-start whitespace-normal py-3"><a href={CONTACT.instagram} target="_blank" rel="noopener noreferrer"><Instagram /> Instagram · VIP Perfume</a></Button>
+            <Button asChild variant="outline" className="h-auto justify-start whitespace-normal py-3"><a href={CONTACT.amazon} target="_blank" rel="noopener noreferrer"><ShoppingBag /> Shop on Amazon</a></Button>
+          </div>
         </div>
       </div>
       <p className="pb-8 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} VIP Perfume India. All rights reserved.</p>
