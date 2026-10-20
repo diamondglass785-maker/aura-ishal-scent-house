@@ -40,7 +40,10 @@ function Hero() {
     <section className="relative h-[90svh] min-h-[520px] overflow-hidden bg-background">
       <div className="absolute inset-0">
         {failed ? <img src={ASSETS.filmPoster} alt="VIP Perfume Aura bottle and presentation box" className="h-full w-full object-contain" /> :
-          <video ref={video} className="h-full w-full object-contain" src={ASSETS.brandFilm} poster={ASSETS.filmPoster} muted={muted} loop playsInline preload="auto" aria-label="VIP Perfume brand film" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setFailed(true)} />}
+          <video ref={video} className="h-full w-full object-contain" poster={ASSETS.filmPoster} muted={muted} loop playsInline preload="auto" aria-label="VIP Perfume brand film" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setFailed(true)}>
+            <source src={ASSETS.brandFilmWebm} type="video/webm" />
+            <source src={ASSETS.brandFilm} type="video/mp4" />
+          </video>}
       </div>
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/20" />
       {!failed && <div className="absolute right-5 top-28 z-20 flex gap-2">
