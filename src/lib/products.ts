@@ -7,6 +7,7 @@ import auraWatch from "@/assets/uploads/aura-watch.jpg.asset.json";
 import ishalWater from "@/assets/uploads/ishal-water.jpg.asset.json";
 import ishalPresentation from "@/assets/uploads/ishal-presentation.jpg.asset.json";
 import brandFilm from "@/assets/uploads/brand-film.mp4.asset.json";
+import brandFilmWebm from "@/assets/uploads/brand-film.webm.asset.json";
 import heroPoster from "@/assets/hero-poster.jpg";
 import amberWave from "@/assets/amber-wave.jpg";
 
@@ -112,4 +113,4 @@ export const CONTACT = {
   amazon: "https://amzn.in/d/0cLmjadw",
 };
 
-export const ASSETS = { heroPoster, amberWave, brandFilm: brandFilm.url, filmPoster: auraPresentation.url };
+export const ASSETS = { heroPoster, amberWave, brandFilm: brandFilm.url, brandFilmWebm: brandFilmWebm.url, filmPoster: auraPresentation.url };
