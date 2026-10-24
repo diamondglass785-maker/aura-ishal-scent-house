@@ -28,6 +28,7 @@ await writeFile(routerPath, router.replace('routeTree,', 'routeTree,\n    traili
 const env = { ...process.env };
 delete env.LOVABLE_SANDBOX;
 delete env.LOVABLE_NITRO_PRESET;
+delete env.DEV_SERVER__PROJECT_PATH;
 const result = spawnSync('bun', ['run', 'build'], { cwd: staging, env, stdio: 'inherit' });
 if (result.status !== 0) throw new Error(`Static export failed; inspect ${staging}`);
 const client = path.join(staging, 'dist/client');
