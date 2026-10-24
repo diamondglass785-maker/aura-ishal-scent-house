@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Uploaded product media is served through Lovable Assets pointers and mapped centrally in `src/lib/products.ts` so all shopping views share the same originals.
+- Netlify static exports run in an isolated temporary source tree, package unchanged media under `/media/`, and rewrite only staged pointers; this avoids depending on Lovable's asset-serving paths while preserving preview behavior.
